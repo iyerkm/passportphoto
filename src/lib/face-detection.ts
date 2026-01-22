@@ -17,7 +17,7 @@ export interface FaceDetectionResult {
 export async function detectFaces(imageDataUrl: string): Promise<FaceDetectionResult> {
   try {
     // Dynamic import to reduce bundle size
-    const tf = await import('@tensorflow/tfjs')
+    await import('@tensorflow/tfjs') // Required runtime for face detection
     const faceDetection = await import('@tensorflow-models/face-landmarks-detection')
 
     // Load the face detection model
@@ -70,7 +70,12 @@ export async function detectFaces(imageDataUrl: string): Promise<FaceDetectionRe
         isValid: false,
         message: `${faceCount} faces detected. Passport photos must contain only one person. Please upload a photo with just yourself.`,
         faces: faces.map(face => ({
-          box: face.box as { x: number; y: number; width: number; height: number },
+          box: {
+            x: face.box.xMin,
+            y: face.box.yMin,
+            width: face.box.width,
+            height: face.box.height,
+          },
           confidence: 1, // MediaPipe doesn't provide confidence scores
         })),
       }
@@ -83,7 +88,12 @@ export async function detectFaces(imageDataUrl: string): Promise<FaceDetectionRe
       isValid: true,
       message: 'Face detected successfully.',
       faces: [{
-        box: face.box as { x: number; y: number; width: number; height: number },
+        box: {
+          x: face.box.xMin,
+          y: face.box.yMin,
+          width: face.box.width,
+          height: face.box.height,
+        },
         confidence: 1,
       }],
     }
