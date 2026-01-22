@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Indian Passport Photo Tool - Clean Minimal Design System */
+
+@layer base {
+  :root {
+    /* Clean minimal palette - soft grays with teal accent */
+    --background: 210 20% 98%;
+    --foreground: 220 20% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
+
+    /* Teal accent for primary actions */
+    --primary: 173 58% 39%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 15% 93%;
+    --secondary-foreground: 220 20% 25%;
+
+    --muted: 210 15% 95%;
+    --muted-foreground: 220 10% 45%;
+
+    --accent: 173 45% 92%;
+    --accent-foreground: 173 58% 25%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 210 15% 89%;
+    --input: 210 15% 89%;
+    --ring: 173 58% 39%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 220 20% 10%;
+    --foreground: 210 20% 98%;
+
+    --card: 220 18% 13%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 220 18% 13%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 173 58% 45%;
+    --primary-foreground: 220 20% 10%;
+
+    --secondary: 220 15% 20%;
+    --secondary-foreground: 210 15% 85%;
+
+    --muted: 220 15% 18%;
+    --muted-foreground: 210 10% 55%;
+
+    --accent: 173 45% 20%;
+    --accent-foreground: 173 45% 80%;
+
+    --destructive: 0 62% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 71% 40%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 45%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 220 15% 20%;
+    --input: 220 15% 20%;
+    --ring: 173 58% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+    margin: 0;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  /* Tool card styling */
+  .tool-card {
+    @apply bg-card border border-border rounded-xl p-6 shadow-sm transition-all duration-200;
+  }
+
+  .tool-card:hover {
+    @apply shadow-md;
+  }
+
+  /* Drop zone styling */
+  .drop-zone {
+    @apply border-2 border-dashed border-border rounded-xl p-8 transition-all duration-200 cursor-pointer;
+  }
+
+  .drop-zone:hover,
+  .drop-zone.active {
+    @apply border-primary bg-accent/30;
+  }
+
+  /* Photo preview area */
+  .photo-preview {
+    @apply relative bg-muted rounded-lg overflow-hidden;
+  }
+
+  /* Passport photo guidelines overlay */
+  .guidelines-overlay {
+    @apply absolute inset-0 pointer-events-none;
+  }
+
+  /* Crop handle */
+  .crop-handle {
+    @apply absolute w-4 h-4 bg-primary rounded-full border-2 border-white shadow-lg cursor-move;
+  }
+
+  /* Progress indicator */
+  .processing-indicator {
+    @apply flex items-center justify-center gap-2 p-4 bg-accent rounded-lg;
+  }
+
+  /* Spec item */
+  .spec-item {
+    @apply flex items-start gap-3 p-3 rounded-lg bg-muted/50;
+  }
+
+  .spec-item.valid {
+    @apply bg-success/10;
+  }
+
+  .spec-item.invalid {
+    @apply bg-destructive/10;
+  }
+}
+
+/* Canvas container */
+.canvas-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Print preview styles */
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
